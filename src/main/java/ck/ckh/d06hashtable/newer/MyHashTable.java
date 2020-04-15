@@ -1,5 +1,7 @@
 package ck.ckh.d06hashtable.newer;
 
+import ck.ckh.d02linked.singlelinkedlist01.HeroNode;
+import ck.ckh.d06hashtable.older.Emp;
 import lombok.ToString;
 
 import java.nio.channels.NonReadableChannelException;
@@ -41,13 +43,45 @@ public class MyHashTable {
      * traverse all linkedList, hash table
      */
     public void list() {
-        for (LinkedList linkedList : linkedListArray) {
+        for (int i = 0; i < size; i++) {
+            System.out.print("No " + (i + 1) + "'s ");
             try {
-                linkedList.list();
+                linkedListArray[i].list();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    /**
+     * delete by id
+     *
+     * @param id id
+     */
+    public void remove(int id) {
+        int linkedNo = hash(id);
+        Node node = linkedListArray[linkedNo].remove(id);
+        if (node == null) {
+            System.out.println("no result");
+        } else {
+            System.out.println(node + " is deleted");
+        }
+    }
+
+    /**
+     * find by id
+     *
+     * @param id
+     */
+    public void get(int id) {
+        int linkedNo = hash(id);
+        Node node = linkedListArray[linkedNo].get(id);
+        if (node == null) {
+            System.out.println("no result");
+        } else {
+            System.out.printf("在第%d条链表中找到, id=%d, data=%d\n", linkedNo + 1, id, node.data);
+        }
+
     }
 
     /**
@@ -76,15 +110,62 @@ public class MyHashTable {
             temp.next = node;
         }
 
-        private void list() throws Exception {
+        private Node remove(int id) {
+            if (head == null) {
+                System.out.println("linked is empty");
+                return null;
+            }
+            Node temp = head;
+            Node result = null;
+            if (head.id == id) {
+                result = head;
+                head = temp.next;
+                return result;
+            }
+            while (temp.next != null) {
+                // linked list delete node
+                if (temp.next.id == id) {
+                    result = temp.next;
+                    temp.next = temp.next.next;
+                    break;
+                }
+                temp = temp.next;
+            }
+            return result;
+        }
+
+
+        /**
+         * find by id
+         *
+         * @param id
+         */
+        private Node get(int id) {
+            if (head == null) {
+                System.out.println("linked is empty");
+                return null;
+            }
+            Node temp = head;
+            while (temp != null) {
+                // find it
+                if (temp.id == id) {
+                    break;
+                }
+                temp = temp.next;
+            }
+            return temp;
+        }
+
+        private void list() {
             if (head == null) {
                 throw new RuntimeException("Linked list is empty");
             }
             Node temp = head;
             do {
-                System.out.println(temp);
+                System.out.print("-->" + temp);
                 temp = temp.next;
             } while (temp != null);
+            System.out.println();
 //            while (true) {
 //                System.out.println(temp);
 //                if (temp.next == null) {

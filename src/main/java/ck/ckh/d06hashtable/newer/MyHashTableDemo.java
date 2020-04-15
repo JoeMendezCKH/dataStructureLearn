@@ -15,6 +15,8 @@ public class MyHashTableDemo {
             System.out.println("Please enter a key: ");
             System.out.println("put: 添加");
             System.out.println("list: 显示");
+            System.out.println("get: 查找");
+            System.out.println("remove: 删除");
             System.out.println("exit: 退出");
             key = in.next();
             switch (key) {
@@ -32,10 +34,15 @@ public class MyHashTableDemo {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case "find":
+                case "get":
                     System.out.println("please enter the id: ");
                     id = in.nextInt();
-//                    hashTable.findEmpById(id);s
+                    hashTable.get(id);
+                    break;
+                case "remove":
+                    System.out.println("please enter the id: ");
+                    id = in.nextInt();
+                    hashTable.remove(id);
                     break;
                 case "exit":
                     in.close();
