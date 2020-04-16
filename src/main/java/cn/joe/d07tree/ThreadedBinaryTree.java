@@ -1,5 +1,7 @@
 package cn.joe.d07tree;
 
+import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
+
 /**
  * 线索化二叉树
  *
@@ -68,10 +70,32 @@ public class ThreadedBinaryTree {
      */
     public void threadedPostOrder() {
         Node temp = root;
-
+        Node pre = null;
 
         while (temp != null && temp.getLeftType() == 0) {
             temp = temp.left;
+        }
+        while (temp != null) {
+            if (temp.getRightType() == 1) {
+                System.out.print(temp.id + " --> ");
+                pre = temp;
+                temp = temp.right;
+            } else {
+                // 上个处理的节点是当前节点的右节点
+                if (temp.right == pre) {
+                    System.out.print(temp.id + " --> ");
+                    if (temp == root) {
+                        return;
+                    }
+                    pre = temp;
+                    temp = temp.getParent();
+                } else {
+                    temp = temp.right;
+                    while (temp != null && temp.getLeftType() == 0) {
+                        temp = temp.left;
+                    }
+                }
+            }
         }
 
 
