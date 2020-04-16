@@ -13,6 +13,91 @@ public class HuffmanCode {
 
 
     /**
+     * @param bytes 原始的字节数组
+     * @return 经过哈夫曼编码后的字节数组
+     */
+    public byte[] huffmanZip(byte[] bytes) {
+        List<Node> nodes = getNodes(bytes);
+        Node huffmanTreeRoot = createHuffmanTree(nodes);
+        Map<Byte, String> codes = getCodes(huffmanTreeRoot);
+        byte[] zipCodes = zip(bytes, codes);
+        return zipCodes;
+    }
+
+    public byte[] huffmanZip(String string) {
+        byte[] bytes = string.getBytes();
+        return this.huffmanZip(bytes);
+    }
+
+    /**
+     * decode
+     *
+     * @param huffmanCodes 哈夫曼编码表
+     * @param huffmanBytes 哈夫曼编码得到的字节数组
+     * @return 原始数组
+     */
+    public byte[] decode(Map<Byte, String> huffmanCodes, byte[] huffmanBytes) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < huffmanBytes.length; i++) {
+            boolean flag = (i == (huffmanBytes.length - 1));
+            stringBuilder.append(byteToBitString(huffmanBytes[i], !flag));
+        }
+        Map<String, Byte> map = new HashMap<>(16);
+        for (Map.Entry<Byte, String> entry : huffmanCodes.entrySet()) {
+            map.put(entry.getValue(), entry.getKey());
+        }
+        List<Byte> list = new ArrayList<>();
+        for (int i = 0; i < stringBuilder.length(); ) {
+            // 小的计数器
+            int count = 1;
+            boolean flag = true;
+            Byte b = null;
+            while (flag) {
+                // get one bit '0'or'1';  i is stop
+                // just move count until find key in the map
+                String key = stringBuilder.substring(i, i + count);
+                b = map.get(key);
+                if (b == null) {
+                    count++;
+                } else {
+                    flag = false;
+                }
+            }
+            list.add(b);
+            i += count;
+        }
+        byte[] bytes = new byte[list.size()];
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] = list.get(i);
+        }
+        return bytes;
+    }
+
+    /**
+     * change a byte to binary String
+     *
+     * @param b    source byte
+     * @param flag 是否需要补高位, true 需要, 最后一个不需要补高位
+     * @return result string (补码返回)
+     */
+    public String byteToBitString(byte b, boolean flag) {
+        int temp = b;
+        if (flag) {
+            // 1 0000 0000 | temp 补高位
+            temp |= 256;
+        }
+        // 返回的是补码,正数的补码就是自己 int类型是4个字节, 也就是 32位,
+        // 但是之前写的 Huffman code 是按8位编码的, 所以只取低8位
+        String str = Integer.toBinaryString(temp);
+        if (flag) {
+            return str.substring(str.length() - 8);
+        } else {
+            return str;
+        }
+    }
+
+
+    /**
      * 将哈夫曼编码表 放在map<Byte, String>中, 形如 32 = 001
      * 得到 node 节点所有叶子节点的哈夫曼编码, 放入到 HuffmanCodes集合中
      *
@@ -110,6 +195,7 @@ public class HuffmanCode {
         }else {
             len = stringBuilder.length() / 8 +1;
         }*/
+
         int len = (stringBuilder.length() + 7) / 8;
         // 反编码
         byte[] temp = new byte[len];

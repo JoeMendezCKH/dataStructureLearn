@@ -36,6 +36,21 @@ public class HuffmanCodeTest {
 
         byte[] zip = huffmanCode.zip(contentBytes, huffmanCodeCodes);
         System.out.println("zip = " + Arrays.toString(zip));
+        byte[] sourceByte = huffmanCode.decode(huffmanCodeCodes, zip);
+        System.out.println("sourceByte = " + new String(sourceByte));
+    }
+
+    @Test
+    public void testHuffmanZip() {
+
+        byte[] bytes = huffmanCode.huffmanZip(str);
+        System.out.println("bytes = " + Arrays.toString(bytes));
+
+    }
+
+    @Test
+    public void testByteToString() {
+//        System.out.println(huffmanCode.byteToBitString((byte) -1));
 
     }
 }
