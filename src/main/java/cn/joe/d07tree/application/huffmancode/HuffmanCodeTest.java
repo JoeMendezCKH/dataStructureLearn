@@ -49,8 +49,20 @@ public class HuffmanCodeTest {
     }
 
     @Test
-    public void testByteToString() {
-//        System.out.println(huffmanCode.byteToBitString((byte) -1));
+    public void testZipFile() {
 
+        String srcFile = "D:\\BaiduNetdiskDownload\\尚硅谷Java学科全套教程\\1.尚硅谷全套JAVA教程--基础阶段\\14. 尚硅谷Java数据结构和算法\\资料\\压缩测试文件\\src.bmp";
+        String dstFile = "D:\\dst.zip";
+        huffmanCode.zipFile(srcFile,dstFile);
+        System.out.println("success");
+
+    }
+
+    @Test
+    public void testUnZipFile(){
+        String zipFile = "D:\\dst.zip";
+        String dstFile = "D:\\dst.png";
+        huffmanCode.unZipFile(zipFile,dstFile);
+        System.out.println("hello");
     }
 }

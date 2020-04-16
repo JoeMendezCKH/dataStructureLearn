@@ -1,6 +1,7 @@
 package cn.joe.d07tree.application.huffmancode;
 
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -11,17 +12,62 @@ public class HuffmanCode {
 
     private Map<Byte, String> huffmanCodes = new HashMap<>(16);
 
+    /**
+     * @param srcFile source file path
+     * @param dstFile target zip file path
+     */
+    @SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
+    public void zipFile(String srcFile, String dstFile) {
+        try (
+                FileInputStream fileInputStream = new FileInputStream(srcFile);
+                OutputStream outputStream = new FileOutputStream(dstFile);
+                ObjectOutputStream oos = new ObjectOutputStream(outputStream)
+        ) {
+            byte[] bytes = new byte[fileInputStream.available()];
+            fileInputStream.read(bytes);
+
+            // 对文件压缩
+            byte[] huffmanZip = huffmanZip(bytes);
+            // 以对象流的方式写出, 方便恢复源文件
+            oos.writeObject(huffmanZip);
+            // 要把哈夫曼编码表写出, 否则无法恢复
+            oos.writeObject(huffmanCodes);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @param zipFile 准备解压的文件
+     * @param dstFile 解压路径
+     */
+    public void unZipFile(String zipFile, String dstFile) {
+        try (
+                InputStream inputStream = new FileInputStream(zipFile);
+                ObjectInputStream ois = new ObjectInputStream(inputStream);
+                OutputStream os = new FileOutputStream(dstFile);
+        ) {
+            byte[] huffmanByte = (byte[]) ois.readObject();
+            Map<Byte, String> huffmanCode = (Map<Byte, String>) ois.readObject();
+            byte[] bytes = decode(huffmanCode,huffmanByte);
+            os.write(bytes);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+
 
     /**
      * @param bytes 原始的字节数组
      * @return 经过哈夫曼编码后的字节数组
      */
+
     public byte[] huffmanZip(byte[] bytes) {
         List<Node> nodes = getNodes(bytes);
         Node huffmanTreeRoot = createHuffmanTree(nodes);
         Map<Byte, String> codes = getCodes(huffmanTreeRoot);
-        byte[] zipCodes = zip(bytes, codes);
-        return zipCodes;
+        return zip(bytes, codes);
     }
 
     public byte[] huffmanZip(String string) {
