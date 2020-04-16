@@ -1,9 +1,7 @@
-package cn.joe.d07tree.application.huffman;
+package cn.joe.d07tree.application.huffmantree;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * @author Joe

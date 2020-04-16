@@ -1,4 +1,4 @@
-package cn.joe.d07tree.application.huffman;
+package cn.joe.d07tree.application.huffmantree;
 
 import java.util.ArrayList;
 import java.util.Collections;
