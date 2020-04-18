@@ -3,7 +3,6 @@ package cn.joe.d07tree.application.huffmancode;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.lang.model.element.VariableElement;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
