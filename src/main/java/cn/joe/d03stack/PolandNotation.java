@@ -115,9 +115,11 @@ public class PolandNotation {
         do {
             if ((c = expression.charAt(i)) < 48 || (c = expression.charAt(i)) > 57) {
                 // '0' 48  '9' 57
+                // 是符号则直接放入 list
                 ls.add("" + c);
                 i++;
             } else {
+                // 是多位数的话, 进行拼接后, 再放入list
                 str = new StringBuilder();
                 while (i < expression.length() && (c = expression.charAt(i)) >= 48 && (c = expression.charAt(i)) <= 57) {
                     str.append(c);
@@ -169,7 +171,7 @@ public class PolandNotation {
                 // 弹出 (
                 s1.pop();
             } else {
-                // 当s1
+                // 比较符号的优先级
                 while (s1.size() != 0 && Operation.getValue(s1.peek()) >= Operation.getValue(item)) {
                     s2.add(s1.pop());
                 }
