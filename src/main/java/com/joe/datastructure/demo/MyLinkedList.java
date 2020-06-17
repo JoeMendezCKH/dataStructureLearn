@@ -176,6 +176,36 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         }
     }
 
+    public boolean contains(AnyType x) {
+        Node<AnyType> p = beginMarker.next;
+        while (p != endMarker && !(p.data.equals(x))) {
+            p = p.next;
+        }
+        return (p != endMarker);
+    }
+
+    // addAll runs in O(N) time, where N is the size of the items collection
+
+    public void addAll(Iterable<? extends AnyType> items) {
+        for (AnyType item : items) {
+            add(item);
+        }
+    }
+
+    public void removeAll(Iterable<? extends AnyType> items) {
+        AnyType item, element;
+        for (AnyType ele : items) {
+            item = ele;
+            Iterator<? extends AnyType> iterList = iterator();
+            while (iterList.hasNext()) {
+                element = iterList.next();
+                if (element.equals(item)) {
+                    iterList.remove();
+                }
+            }
+        }
+    }
+
     private static class Node<AnyType> {
         public AnyType data;
         public Node<AnyType> prev;
