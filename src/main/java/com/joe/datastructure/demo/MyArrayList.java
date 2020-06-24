@@ -2,6 +2,7 @@ package com.joe.datastructure.demo;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -108,10 +109,23 @@ public class MyArrayList<T> implements Iterable<T> {
         return new ArrayListIterator();
     }
 
+    public java.util.ListIterator<T> listIterator() {
+        return new ArrayListIterator();
+    }
 
-    private class ArrayListIterator implements Iterator<T> {
+
+    // add listIterator support
+
+    private class ArrayListIterator implements ListIterator<T> {
 
         private int current = 0;
+
+        /**
+         * 逆序标志位
+         * next 方法 返回的是 theItems[current++]
+         * 在删除时要区分一下
+         */
+        boolean backwards = false;
 
         @Override
         public boolean hasNext() {
@@ -123,12 +137,51 @@ public class MyArrayList<T> implements Iterable<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+            backwards = false;
             return theItems[current++];
         }
 
         @Override
+        public boolean hasPrevious() {
+            return current > 0;
+        }
+
+        @Override
+        public T previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            backwards = true;
+            return theItems[--current];
+        }
+
+        @Override
+        public int nextIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int previousIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public void remove() {
-            MyArrayList.this.remove(--current);
+            if (backwards) {
+                MyArrayList.this.remove(current--);
+            } else {
+                MyArrayList.this.remove(--current);
+            }
+        }
+
+        @Override
+        public void set(T t) {
+            MyArrayList.this.set(current, t);
+        }
+
+        @Override
+        public void add(T t) {
+            MyArrayList.this.add(current++, t);
         }
     }
 

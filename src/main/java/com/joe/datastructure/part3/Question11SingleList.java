@@ -1,5 +1,7 @@
 package com.joe.datastructure.part3;
 
+import javax.swing.text.TabableView;
+
 /**
  * 实现单链表, 只有一个头节点, 无尾节点, 只保留头节点的引用
  *
@@ -16,6 +18,12 @@ public class Question11SingleList {
         init();
     }
 
+    void init() {
+        theSize = 0;
+        head = new Node<>();
+        head.next = null;
+    }
+
     boolean add(Object x) {
         if (contains(x)) {
             return false;
@@ -28,12 +36,21 @@ public class Question11SingleList {
         }
         return true;
     }
-//    boolean remove(Object x){
-//        if (!contains(x)){
-//            return false;
-//        }
-//        Node<Object> curr = head.next;
-//    }
+
+    boolean remove(Object x) {
+        if (!contains(x)) {
+            return false;
+        }
+        Node<Object> curr = head.next;
+        Node<Object> trailer = head;
+        while (!curr.data.equals(x)) {
+            trailer = curr;
+            curr = curr.next;
+        }
+        trailer.next = curr.next;
+        theSize--;
+        return true;
+    }
 
     boolean contains(Object x) {
         Node<Object> node = head.next;
@@ -60,13 +77,7 @@ public class Question11SingleList {
         System.out.println();
     }
 
-    void init() {
-        theSize = 0;
-        head = new Node<>();
-        head.next = null;
-    }
-
-    private class Node<T> {
+    private static class Node<T> {
         T data;
         Node<T> next;
 
