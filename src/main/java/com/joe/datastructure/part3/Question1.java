@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 给定表L,P, 包含升序排列的整数
+ * 给定表L,P, 表包含升序排列的整数
  * printLots(l,p), 将打印L中由P指定位置的元素
  *
  * @author Joe

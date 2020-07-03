@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
  * @create 2020/6/15 9:46
  */
 public class MyArrayList<T> implements Iterable<T> {
+
     private static final int DEFAULT_CAPACITY = 10;
 
     private int theSize;
