@@ -1,4 +1,4 @@
-package com.joe.datastructure.demo;
+package com.joe.datastructure.part3;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;

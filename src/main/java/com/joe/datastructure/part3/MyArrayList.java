@@ -1,4 +1,4 @@
-package com.joe.datastructure.demo;
+package com.joe.datastructure.part3;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -110,7 +110,7 @@ public class MyArrayList<T> implements Iterable<T> {
         return new ArrayListIterator();
     }
 
-    public java.util.ListIterator<T> listIterator() {
+    public ListIterator<T> listIterator() {
         return new ArrayListIterator();
     }
 

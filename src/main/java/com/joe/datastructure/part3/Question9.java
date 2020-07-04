@@ -9,5 +9,5 @@ package com.joe.datastructure.part3;
  */
 public class Question9 {
 
-    // com.joe.datastructure.demo.MyLinkedList.addAll
+    // com.joe.datastructure.part3.MyLinkedList.addAll
 }

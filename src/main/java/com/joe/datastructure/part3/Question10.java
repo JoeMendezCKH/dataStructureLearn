@@ -6,5 +6,5 @@ package com.joe.datastructure.part3;
  * @create 2020/6/17 10:51
  */
 public class Question10 {
-    // com.joe.datastructure.demo.MyLinkedList.removeAll
+    // com.joe.datastructure.part3.MyLinkedList.removeAll
 }

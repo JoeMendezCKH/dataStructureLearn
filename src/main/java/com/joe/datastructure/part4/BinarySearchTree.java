@@ -1,4 +1,4 @@
-package com.joe.datastructure.demo;
+package com.joe.datastructure.part4;
 
 /**
  * 二叉查找树, 左边小于当前节点, 右边大于当前节点

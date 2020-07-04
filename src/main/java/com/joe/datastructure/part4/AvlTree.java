@@ -1,4 +1,4 @@
-package com.joe.datastructure.demo;
+package com.joe.datastructure.part4;
 
 /**
  * @author Joe
@@ -122,6 +122,7 @@ public class AvlTree<T extends Comparable<? super T>> {
                 }
             }
         }
+        // update height
         t.height = Math.max(height(t.left), height(t.right)) + 1;
         return t;
     }

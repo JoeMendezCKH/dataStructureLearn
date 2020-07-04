@@ -1,7 +1,5 @@
 package cn.joe.d07tree;
 
-import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
-
 /**
  * 线索化二叉树
  *
@@ -9,7 +7,6 @@ import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
  * @create 2020/4/15 21:38
  */
 public class ThreadedBinaryTree {
-
 
     private Node root;
 
