@@ -45,14 +45,14 @@
   `Ο(1)＜Ο(log2n)＜Ο(n)＜Ο(nlog2n)＜Ο(n2)＜Ο(n3)＜ Ο(nk) ＜Ο(2n)`  
   随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低
   
-### 1. 冒泡排序 Bubble Sorting
+### 1. 冒泡排序 Bubble Sorting.
 > cn.joe.d04sortalgorithm.BubbleSortDemo
 - 基本思想是：  
   通过对待排序序列从前向后（从下标较小的元素开始）,依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部，就象水底下的气泡一样逐渐向上冒。
 - 设计时为数组长度-1次大的遍历, 每次大遍历中遍历所有数字  
   可以设置一个flag , 若未发生交换, 则提前结束
 
-### 2. 选择排序 select sorting  
+### 2. 选择排序 select sorting.  
 > cn.joe.d04sortalgorithm.SelectSortDemo
 - 选择式排序也属于内部排序法，是从欲排序的数据中，按指定的规则选出某一元素，再依规定交换位置后达到排序的目的
 - 思想  
@@ -63,18 +63,18 @@
     - 遍历到数组最后时, 得到本轮最小数 和 下标
     - 交换当前数字和最小数, 详见代码
     
-### 3. 插入排序 Insertion Sorting  
+### 3. 插入排序 Insertion Sorting.  
 > cn.joe.d04sortalgorithm.InsertionSortDemo
 - 基本思想  
   把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只包含一个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序码依次与有序表元素的排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表
     - 也是 n-1 次排序  
     
-### 4. 希尔排序 Shell Sorting  
+### 4. 希尔排序 Shell Sorting.  
 > cn.joe.d04sortalgorithm.ShellSortDemo
 - 希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序
 - 希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
 
-### 5. 快速排序 Quick Sort
+### 5. 快速排序 Quick Sort.
 > cn.joe.d04sortalgorithm.QuickSortDemo
 - 快速排序（QuickSort）是对冒泡排序的一种改进。
   - 基本思想是：  
@@ -105,7 +105,7 @@
 1. 线性查找: 不需要数组是有序的, 就是全部遍历一遍
 2. 二分查找: 有序数组  
 3. 插值查找:  
-    - 插值查找算法类似于二分查找，不同的是插值查找每次从自适应mid处开始查找
+    - 插值查找算法类似于二分查找，不同地是插值查找每次从自适应mid处开始查找
     - 将折半查找中的求mid 索引的公式 , low 表示左边索引left, high表示右边索引right.key 就是前面我们讲的  findVal  
     - `int mid = low + (high - low) * (key - arr[low]) / (arr[high] - arr[low])`  ;/*插值索引*/对应前面的代码公式：`int mid = left + (right – left) * (findVal – arr[left]) / (arr[right] – arr[left])`
     - 插值查找注意事项：      
