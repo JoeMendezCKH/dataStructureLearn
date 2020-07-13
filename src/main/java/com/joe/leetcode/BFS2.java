@@ -40,7 +40,6 @@ public class BFS2 {
         root.right.right = new TreeNode(7);
 
         List<List<Integer>> lists = levelOrder(root);
-
         System.out.println(lists);
 
     }
