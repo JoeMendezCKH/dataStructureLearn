@@ -1,4 +1,4 @@
-package com.joe.leetcode;
+package com.joe.leetcode.july;
 
 /**
  * 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。

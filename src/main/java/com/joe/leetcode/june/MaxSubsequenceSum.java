@@ -1,4 +1,4 @@
-package com.joe.leetcode;
+package com.joe.leetcode.june;
 
 /**
  * 最大子列和问题

@@ -1,4 +1,4 @@
-package com.joe.leetcode;
+package com.joe.leetcode.july;
 
 import java.util.*;
 import java.util.stream.Stream;

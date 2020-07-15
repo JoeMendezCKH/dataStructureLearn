@@ -1,4 +1,4 @@
-package com.joe.leetcode;
+package com.joe.leetcode.july;
 
 import org.junit.Test;
 
