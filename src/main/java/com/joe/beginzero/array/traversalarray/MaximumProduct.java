@@ -1,10 +1,23 @@
 package com.joe.beginzero.array.traversalarray;
 
 import java.util.Arrays;
-import java.util.logging.Level;
 
 /**
  * 628
+ * 三个数的最大乘积
+ * 给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+ * <p>
+ * 示例 1:
+ * 输入: [1,2,3]
+ * 输出: 6
+ * 示例 2:
+ * 输入: [1,2,3,4]
+ * 输出: 24
+ * 注意:
+ * 给定的整型数组长度范围是[3,104]，数组中所有的元素范围是[-1000, 1000]。
+ * 输入的数组中任意三个数的乘积不会超出32位有符号整数的范围。
+ * <p>
+ * https://leetcode-cn.com/problems/maximum-product-of-three-numbers/
  *
  * @author ckh
  * @create 2020/7/18 11:16
@@ -38,7 +51,7 @@ public class MaximumProduct {
      * <p>
      * 在上面的方法中, 我们实际上只要求出数组中最大的三个数以及最小的两个数，
      * 因此我们可以不用排序，用线性扫描直接得出这五个数。
-     *
+     * <p>
      * 这个最快... 1ms
      */
     public static int method2(int[] nums) {
