@@ -16,7 +16,7 @@ package com.joe.beginzero.array.traversalarray;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/max-consecutive-ones
  * <p>
- * 强行联系了一波双指针, 实现滑动窗口
+ * 强行练习了一波双指针, 实现滑动窗口
  *
  * @author ckh
  * @create 2020/7/18 10:02
