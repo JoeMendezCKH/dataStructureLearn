@@ -6,12 +6,15 @@ import java.util.List;
 
 /**
  * 118. 杨辉三角
- *
+ * 生成 杨辉三角
  * @author ckh
  * @create 2020/7/31 15:13
  */
 public class PascalsTriangle {
 
+    /**
+     * 生成 杨辉三角
+     */
     public static List<List<Integer>> generate(int numRows) {
         List<List<Integer>> list = new ArrayList<>();
         for (int i = 0; i < numRows; i++) {
