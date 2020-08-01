@@ -15,6 +15,7 @@ import java.util.List;
  * @create 2020/7/31 15:23
  */
 public class PascalsTriangle2 {
+
     public static List<Integer> getRow(int rowIndex) {
         if (rowIndex <= 0) {
             return Collections.emptyList();
@@ -37,7 +38,7 @@ public class PascalsTriangle2 {
 
     /**
      * 动态规划
-     * 和第一种相同, 只是用 integer[] 数组替换了 arraylist
+     * 和第一种相同, 用 integer[] 数组替换了 arraylist
      */
     public static List<Integer> getRow3(int rowIndex) {
         Integer[] dp = new Integer[rowIndex + 1];
