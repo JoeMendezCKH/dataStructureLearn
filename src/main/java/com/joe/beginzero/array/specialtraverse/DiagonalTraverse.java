@@ -22,7 +22,7 @@ public class DiagonalTraverse {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
-        // store the result
+        // store the result 
         int[] result = new int[rows * columns];
         int k = 0;
         // store each diagonal array
