@@ -1,11 +1,7 @@
 package com.joe.beginzero.array.transformarray;
 
-import com.oracle.webservices.internal.api.databinding.DatabindingModeFeature;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import sun.applet.Main;
 
 import java.util.Arrays;
-import java.util.Stack;
 
 /**
  * 73. Set Matrix Zeroes
