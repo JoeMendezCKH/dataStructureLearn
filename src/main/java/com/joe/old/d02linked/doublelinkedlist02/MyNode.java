@@ -8,8 +8,6 @@ import lombok.ToString;
  * @author Joe
  * @create 2020/3/7 14:25
  */
-@Getter
-@Setter
 @ToString(exclude = {"next", "pre"})
 public class MyNode {
     private int id;
@@ -25,6 +23,30 @@ public class MyNode {
     public MyNode(int id, String name, String nickName) {
         this.id = id;
         this.name = name;
+        this.nickName = nickName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 }

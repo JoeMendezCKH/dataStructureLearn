@@ -7,8 +7,6 @@ import lombok.*;
  * @create 2020/3/5 11:14
  * hero node object is a node
  */
-@Getter
-@Setter
 @ToString(exclude = "next")
 public class HeroNode {
     private int id;
@@ -19,6 +17,30 @@ public class HeroNode {
     public HeroNode(int id, String name, String nickName) {
         this.id = id;
         this.name = name;
+        this.nickName = nickName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 }
