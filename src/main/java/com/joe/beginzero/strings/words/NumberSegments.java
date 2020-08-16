@@ -1,4 +1,4 @@
-package com.joe.beginzero.strings;
+package com.joe.beginzero.strings.words;
 
 /**
  * 434. Number of Segments in a String
