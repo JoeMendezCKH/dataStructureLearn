@@ -3,8 +3,7 @@ package com.joe.beginzero.strings.words;
 /**
  * 58. Length of Last Word
  *
- * te
- * @author ckh
+  * @author ckh
  * @create 15/08/2020 12:00
  */
 public class LengthOfLastWord {
