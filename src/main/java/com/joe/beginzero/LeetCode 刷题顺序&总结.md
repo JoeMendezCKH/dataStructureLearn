@@ -3,7 +3,7 @@
 > 链接：https://leetcode-cn.com/circle/article/48kq9d/
 > 来源：力扣（LeetCode）
 
-## 1. 数组s
+## 1. 数组
 
 <img src="https://gitee.com/JoeMendez/picGoImages/raw/master/img/20200717090650.png" alt="image-20200717090648024" style="zoom:80%;" />
 
