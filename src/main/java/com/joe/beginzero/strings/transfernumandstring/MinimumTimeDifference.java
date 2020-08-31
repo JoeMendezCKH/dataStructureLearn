@@ -14,7 +14,7 @@ public class MinimumTimeDifference {
     /**
      * 作者：qian-li-10
      * 链接：https://leetcode-cn.com/problems/minimum-time-difference/solution/6-ms-by-qian-li-10/
-     * 把时间先转化为数字分钟，然后针对数字寻找最小的差值（先排序，然后计算相邻之差）
+     * 把时间先转化为分钟, 即数字数组，然后针对数字寻找最小的差值（先排序，然后计算相邻之差）
      */
     public static int findMinDifference(List<String> timePoints) {
         int[] times = new int[timePoints.size()];
