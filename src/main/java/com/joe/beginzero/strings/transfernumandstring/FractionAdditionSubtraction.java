@@ -1,7 +1,6 @@
 package com.joe.beginzero.strings.transfernumandstring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
