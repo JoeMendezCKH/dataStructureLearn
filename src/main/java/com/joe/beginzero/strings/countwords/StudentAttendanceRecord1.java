@@ -34,6 +34,7 @@ public class StudentAttendanceRecord1 {
                 }
             } else {
                 l = 0;
+                //sadf
             }
         }
         return true;
