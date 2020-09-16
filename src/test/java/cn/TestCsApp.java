@@ -1,6 +1,10 @@
 package cn;
 
+import com.joe.usealgorithm.merge.HanoiTower;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author ckh
@@ -24,4 +28,6 @@ public class TestCsApp {
         // 补码乘法， 乘以常数 ！！！
         System.out.println((0xff << 8) - 0xff);
     }
+
+
 }
