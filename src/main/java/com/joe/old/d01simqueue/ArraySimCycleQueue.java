@@ -21,8 +21,8 @@ public class ArraySimCycleQueue {
      */
     private int rear;
 
-    private int[] arr;
-    private int maxSize;
+    private final int[] arr;
+    private final int maxSize;
 
     /**
      * @param maxSize size of the queue

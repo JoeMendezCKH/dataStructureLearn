@@ -57,10 +57,11 @@ public class SparseArray {
 
         int[][] result = null;
         try {
-            writeFile(sparseArr);
             System.out.println("save to a file");
-            result = readFile(new File("map.data"));
+            writeFile(sparseArr);
+
             System.out.println("read the file over");
+            result = readFile(new File("map.data"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,7 +84,7 @@ public class SparseArray {
             for (int data : row) {
                 fw.write(data + "\t");
             }
-            fw.write("\r");
+            fw.write("\n");
         }
         fw.close();
     }
