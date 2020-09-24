@@ -30,4 +30,10 @@ public class TestCsApp {
     }
 
 
+    @Test
+    public void test02(){
+        System.out.println("1"+"\r"+" 2");
+    }
+
+
 }
