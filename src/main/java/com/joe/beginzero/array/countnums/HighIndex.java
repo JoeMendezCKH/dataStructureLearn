@@ -17,7 +17,7 @@ public class HighIndex {
      * 排序
      * 将数组按引用次数降序排序
      * 在排完序的数组 citations 中, 如果 citations[i] > i，那么说明第 0 到 i 篇论文都有至少 i+1 次引用
-     * 因此我们只要找到最大的 ii 满足 citations[i] > i，那么 h 指数即为 i+1
+     * 因此我们只要找到最大的 i 满足 citations[i] > i，那么 h 指数即为 i+1
      */
     public static int hIndex1(int[] citations) {
         // 排序（注意这里是升序排序，因此下面需要倒序扫描）
@@ -50,7 +50,7 @@ public class HighIndex {
     }
 
     public static void main(String[] args) {
-        int[] nums = {3, 0, 6, 1, 5};
+        int[] nums = {3, 0, 6, 4, 5};
         int i = hIndex1(nums);
         System.out.println("i = " + i);
 

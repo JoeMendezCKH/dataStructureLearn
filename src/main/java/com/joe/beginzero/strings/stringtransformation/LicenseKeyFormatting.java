@@ -12,7 +12,7 @@ public class LicenseKeyFormatting {
         char[] chars = S.toCharArray();
         char[] result = new char[chars.length + S.length() / K];
         int length = 0;
-        // 逆序便利
+        // 逆序遍历
         int i = chars.length - 1, j = result.length - 1;
         while (i >= 0) {
             if (chars[i] == '-') {
