@@ -38,8 +38,10 @@ public class Q410 {
     }
 
     public static void main(String[] args) {
-        Q410 list = new Q410();
-        File f = new File("/home/joe/Documents/temp");
-        list.list(f);
+//        Q410 list = new Q410();
+//        File f = new File("/home/joe/Documents/temp");
+//        list.list(f);
+
+        System.out.println(1989 % 7);
     }
 }
