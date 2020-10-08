@@ -2,11 +2,12 @@ package com.joe.datastructure.part3;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
- * @author Joe
- * @create 2020/6/15 10:30
+ * @author ckh
+ * @create 10/6/20 9:47 AM
  */
 public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
@@ -15,6 +16,18 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
     private Node<AnyType> beginMarker;
     private Node<AnyType> endMarker;
 
+    private static class Node<AnyType> {
+
+        public AnyType data;
+        public Node<AnyType> prev;
+        public Node<AnyType> next;
+
+        public Node(AnyType data, Node<AnyType> prev, Node<AnyType> next) {
+            this.data = data;
+            this.prev = prev;
+            this.next = next;
+        }
+    }
 
     public MyLinkedList() {
         doClear();
@@ -22,15 +35,6 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
     public void clear() {
         doClear();
-    }
-
-    public void doClear() {
-        beginMarker = new Node<AnyType>(null, null, null);
-        endMarker = new Node<AnyType>(null, beginMarker, null);
-        beginMarker.next = endMarker;
-
-        theSize = 0;
-        modCount++;
     }
 
     public int size() {
@@ -41,38 +45,48 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         return size() == 0;
     }
 
+    private void doClear() {
+        beginMarker = new Node<>(null, null, null);
+        endMarker = new Node<>(null, beginMarker, null);
+        beginMarker.next = endMarker;
+
+        theSize = 0;
+        modCount++;
+    }
+
     public boolean add(AnyType x) {
         add(size(), x);
         return true;
     }
 
-    public void add(int idx, AnyType x) {
-        addBefore(getNode(idx, 0, size()), x);
-
+    public void add(int index, AnyType data) {
+        addBefore(getNode(index, 0, size()), data);
     }
 
-
-    public AnyType get(int idx) {
-        return getNode(idx).data;
+    public AnyType get(int index) {
+        return getNode(index).data;
     }
 
-    public AnyType set(int idx, AnyType newVal) {
-        Node<AnyType> p = getNode(idx);
+    public AnyType set(int index, AnyType newVal) {
+        return set(getNode(index), newVal);
+    }
+
+    public AnyType set(Node<AnyType> p, AnyType newVal) {
         AnyType oldVal = p.data;
         p.data = newVal;
         return oldVal;
     }
 
-    public AnyType remove(int idx) {
-        return remove(getNode(idx));
+    public AnyType remove(int index) {
+        return remove(getNode(index));
     }
+
 
     /**
      * adds an item to this collection, at specified position p
-     * items at or after that position are slid one position higher
      *
-     * @param p node to add before
-     * @param x any object
+     * @param p Node to add before
+     * @param x Any Object
      */
     private void addBefore(Node<AnyType> p, AnyType x) {
         Node<AnyType> newNode = new Node<>(x, p.prev, p);
@@ -83,51 +97,76 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
     }
 
     /**
-     * removes the object contained in node p
+     * Removes the object contained in Node p
      *
-     * @param p the node containing the object
+     * @param p the Node containing the object
      * @return the item was removed from the collection
      */
     private AnyType remove(Node<AnyType> p) {
         p.next.prev = p.prev;
         p.prev.next = p.next;
-
         theSize--;
         modCount++;
-
         return p.data;
+    }
 
+
+    private Node<AnyType> getNode(int index) {
+        return getNode(index, 0, size() - 1);
     }
 
     /**
-     * gets the node at position idx, which must range from 0 to size()-1
+     * Gets the Node at postition index, which must range from lower to upper
      *
-     * @param idx index to search at
-     * @return internal node corresponding to idx
-     * @throws IndexOutOfBoundsException if idx is not between 0 and size()-1, inclusive
+     * @param index index to search at
+     * @param lower lower lowest valid index
+     * @param upper upper highest valid index
+     * @return internal node corresponding to index
+     * @throws IndexOutOfBoundsException if index is not between lower and upper, inclusive
      */
-    private Node<AnyType> getNode(int idx) {
-        return getNode(idx, 0, size() - 1);
-    }
-
-    public Node<AnyType> getNode(int idx, int lower, int upper) {
+    private Node<AnyType> getNode(int index, int lower, int upper) {
         Node<AnyType> p;
-        if (idx < lower || idx > upper) {
+        if (index < lower || index > upper) {
             throw new IndexOutOfBoundsException();
         }
-
-        if (idx < size() / 2) {
+        if (index < size() / 2) {
             p = beginMarker.next;
-            for (int i = 0; i < idx; i++) {
+            for (int i = 0; i < index; i++) {
                 p = p.next;
             }
         } else {
             p = endMarker;
-            for (int i = size(); i > idx; i--) {
+            for (int i = size(); i > 0; i--) {
                 p = p.prev;
+
             }
         }
         return p;
+    }
+
+    /**
+     * Q303
+     */
+    public boolean contains(AnyType x) {
+        Node<AnyType> p = beginMarker.next;
+        while (p != endMarker && !(p.data.equals(x))) {
+            p = p.next;
+        }
+        return p != endMarker;
+    }
+
+    public void removeAll(Iterable<? extends AnyType> items) {
+        Iterator<AnyType> iterator = iterator();
+        for (AnyType item : items) {
+
+            while (iterator.hasNext()) {
+                AnyType element = iterator.next();
+                if (element.equals(item)) {
+                    iterator.remove();
+                }
+            }
+
+        }
     }
 
     @Override
@@ -135,11 +174,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         return new LinkedListIterator();
     }
 
-    private class LinkedListIterator implements Iterator<AnyType> {
+    private class LinkedListIterator implements ListIterator<AnyType> {
 
         private Node<AnyType> current = beginMarker.next;
-        private int expectModCount = modCount;
+        private int expectedModCount = modCount;
         private boolean okToRemove = false;
+
 
         @Override
         public boolean hasNext() {
@@ -148,22 +188,22 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
         @Override
         public AnyType next() {
-            if (modCount != expectModCount) {
+            if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
             }
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
 
-            AnyType nexItem = current.data;
+            AnyType nextItem = current.data;
             current = current.next;
             okToRemove = true;
-            return nexItem;
+            return nextItem;
         }
 
         @Override
         public void remove() {
-            if (modCount != expectModCount) {
+            if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
             }
             if (!okToRemove) {
@@ -171,50 +211,56 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
             }
 
             MyLinkedList.this.remove(current.prev);
-            expectModCount++;
+            expectedModCount++;
             okToRemove = false;
         }
-    }
 
-    public boolean contains(AnyType x) {
-        Node<AnyType> p = beginMarker.next;
-        while (p != endMarker && !(p.data.equals(x))) {
-            p = p.next;
+        @Override
+        public boolean hasPrevious() {
+            return current.prev != beginMarker;
         }
-        return (p != endMarker);
-    }
 
-    // addAll runs in O(N) time, where N is the size of the items collection
-
-    public void addAll(Iterable<? extends AnyType> items) {
-        for (AnyType item : items) {
-            add(item);
-        }
-    }
-
-    public void removeAll(Iterable<? extends AnyType> items) {
-        AnyType item, element;
-        for (AnyType ele : items) {
-            item = ele;
-            Iterator<? extends AnyType> iterList = iterator();
-            while (iterList.hasNext()) {
-                element = iterList.next();
-                if (element.equals(item)) {
-                    iterList.remove();
-                }
+        @Override
+        public AnyType previous() {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
             }
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+
+            current = current.prev;
+            AnyType previousItem = current.data;
+            okToRemove = true;
+            return previousItem;
         }
-    }
 
-    private static class Node<AnyType> {
-        public AnyType data;
-        public Node<AnyType> prev;
-        public Node<AnyType> next;
+        @Override
+        public void add(AnyType x) {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+            MyLinkedList.this.addBefore(current.next, x);
 
-        public Node(AnyType data, Node<AnyType> prev, Node<AnyType> next) {
-            this.data = data;
-            this.prev = prev;
-            this.next = next;
+        }
+
+        @Override
+        public void set(AnyType newVal) {
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+            MyLinkedList.this.set(current.next, newVal);
+
+        }
+
+        @Override
+        public int nextIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int previousIndex() {
+            throw new UnsupportedOperationException();
         }
     }
 }

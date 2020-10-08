@@ -1,13 +1,27 @@
 package com.joe.datastructure.part4;
 
 /**
- * 二叉查找树, 左边小于当前节点, 右边大于当前节点
- *
- * @author Joe
- * @create 2020/7/3 14:59
+ * @author ckh
+ * @create 10/7/20 11:18 AM
  */
-public class BinarySearchTree<T extends Comparable<? super T>> {
-    private BinaryNode<T> root;
+public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
+    private static class BinaryNode<AnyType> {
+        AnyType element;
+        BinaryNode<AnyType> left;
+        BinaryNode<AnyType> right;
+
+        public BinaryNode(AnyType element) {
+            this.element = element;
+        }
+
+        public BinaryNode(AnyType element, BinaryNode<AnyType> left, BinaryNode<AnyType> right) {
+            this.element = element;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    private BinaryNode<AnyType> root;
 
     public BinarySearchTree() {
         root = null;
@@ -21,63 +35,49 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         return root == null;
     }
 
-    public boolean contains(T x) {
+    public boolean contains(AnyType x) {
         return contains(x, root);
     }
 
-    /**
-     * internal method to find an item in a subtree
-     *
-     * @param x is item to search for
-     * @param t the node that roots the subtree
-     * @return true if the item is found
-     */
-    private boolean contains(T x, BinaryNode<T> t) {
+    private boolean contains(AnyType x, BinaryNode<AnyType> t) {
         if (t == null) {
             return false;
         }
-        int compareResult = x.compareTo(t.element);
-        if (compareResult < 0) {
-            // 尾递归, 递归调用是整个函数体中最后执行的语句且它的返回值不属于表达式的一部分
+        int compare = x.compareTo(t.element);
+
+        if (compare < 0) {
             return contains(x, t.left);
-        } else if (compareResult > 0) {
+        } else if (compare > 0) {
             return contains(x, t.right);
         } else {
             return true;
         }
     }
 
-    public T findMin() throws Exception {
+    public AnyType findMin() throws NoSuchFieldException {
         if (isEmpty()) {
-            throw new Exception();
+            throw new NoSuchFieldException();
         }
         return findMin(root).element;
     }
 
-    /**
-     * Internal method to find the smallest item in a subtree
-     *
-     * @param t the node that roots the subtree
-     * @return null or result of min node
-     */
-    private BinaryNode<T> findMin(BinaryNode<T> t) {
+    private BinaryNode<AnyType> findMin(BinaryNode<AnyType> t) {
         if (t == null) {
             return null;
-        } else if (t.left != null) {
-            return findMin(t.left);
-        } else {
+        } else if (t.left == null) {
             return t;
         }
+        return findMin(t.left);
     }
 
-    public T findMax() throws Exception {
+    public AnyType findMax() throws NoSuchFieldException {
         if (isEmpty()) {
-            throw new Exception();
+            throw new NoSuchFieldException();
         }
         return findMax(root).element;
     }
 
-    private BinaryNode<T> findMax(BinaryNode<T> t) {
+    private BinaryNode<AnyType> findMax(BinaryNode<AnyType> t) {
         if (t != null) {
             while (t.right != null) {
                 t = t.right;
@@ -86,73 +86,61 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         return t;
     }
 
-    public void insert(T x) {
+    public void insert(AnyType x) {
         root = insert(x, root);
     }
 
-    /**
-     * insert into a subtree
-     *
-     * @param x the item to insert
-     * @param t the node that roots the subtree
-     * @return the new root of subtree
-     */
-    private BinaryNode<T> insert(T x, BinaryNode<T> t) {
+    private BinaryNode<AnyType> insert(AnyType x, BinaryNode<AnyType> t) {
         if (t == null) {
-            return new BinaryNode<>(x);
+            return new BinaryNode<>(x, null, null);
         }
         int compare = x.compareTo(t.element);
+
         if (compare < 0) {
             t.left = insert(x, t.left);
         } else if (compare > 0) {
             t.right = insert(x, t.right);
         }
+
         return t;
     }
 
-    public void remove(T x) {
+    public void remove(AnyType x) {
         root = remove(x, root);
     }
 
-    /**
-     * remove from a subtree
-     *
-     * @param x the item to remove
-     * @param t the node that roots the subtree
-     * @return the new root of subtree
-     */
-    private BinaryNode<T> remove(T x, BinaryNode<T> t) {
+    private BinaryNode<AnyType> remove(AnyType x, BinaryNode<AnyType> t) {
         if (t == null) {
-            // item not found, do nothing
-            return null;
+            return t;
         }
-        int compareResult = x.compareTo(t.element);
+        int compare = x.compareTo(t.element);
 
-        if (compareResult < 0) {
+        if (compare < 0) {
             t.left = remove(x, t.left);
-        } else if (compareResult > 0) {
+        } else if (compare > 0) {
             t.right = remove(x, t.right);
         } else if (t.left != null && t.right != null) {
-            // two children
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
         } else {
-            // single child
             t = (t.left != null) ? t.left : t.right;
         }
         return t;
     }
 
+
     public void printTree() {
-        printTree(root);
+        if (isEmpty()) {
+            System.out.println("empty tree");
+        } else {
+            printTree(root);
+        }
     }
 
     /**
-     * Internal method to print a subtree in sorted order.
-     *
-     * @param t the node that roots the subtree.
+     * infix traverse
      */
-    private void printTree(BinaryNode<T> t) {
+    private void printTree(BinaryNode<AnyType> t) {
         if (t != null) {
             printTree(t.left);
             System.out.println(t.element);
@@ -160,26 +148,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
     }
 
+
     /**
-     * 二叉树的节点
+     * Internal method to compute height of a subtree
+     * @param t the node that roots the subtree
      */
-    private static class BinaryNode<T> {
-
-        /**
-         * data in the node
-         */
-        T element;
-        BinaryNode<T> left;
-        BinaryNode<T> right;
-
-        public BinaryNode(T element) {
-            this(element, null, null);
-        }
-
-        public BinaryNode(T element, BinaryNode<T> left, BinaryNode<T> right) {
-            this.element = element;
-            this.left = left;
-            this.right = right;
+    private int height(BinaryNode<AnyType> t) {
+        if (t == null) {
+            return -1;
+        } else {
+            return 1 + Math.max(height(t.left), height(t.right));
         }
     }
 }

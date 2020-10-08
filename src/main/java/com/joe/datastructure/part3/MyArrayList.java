@@ -1,20 +1,18 @@
 package com.joe.datastructure.part3;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
- * @author Joe
- * @create 2020/6/15 9:46
+ * @author ckh
+ * @create 9/25/20 9:23 AM
  */
-public class MyArrayList<T> implements Iterable<T> {
+public class MyArrayList<AnyType> implements Iterable<AnyType> {
 
     private static final int DEFAULT_CAPACITY = 10;
-
     private int theSize;
-    private T[] theItems;
+    private AnyType[] theItems;
 
     public MyArrayList() {
         doClear();
@@ -24,7 +22,7 @@ public class MyArrayList<T> implements Iterable<T> {
         doClear();
     }
 
-    public void doClear() {
+    private void doClear() {
         theSize = 0;
         ensureCapacity(DEFAULT_CAPACITY);
     }
@@ -41,48 +39,42 @@ public class MyArrayList<T> implements Iterable<T> {
         ensureCapacity(size());
     }
 
-    public T get(int idx) {
-        checkIndex(idx);
+    public AnyType get(int idx) {
+        if (idx < 0 || idx > size()) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         return theItems[idx];
     }
 
-    public T set(int idx, T newVal) {
-        checkIndex(idx);
-        T old = theItems[idx];
-        theItems[idx] = newVal;
-        return old;
-    }
-
-    private void checkIndex(int idx) {
-        if (idx < 0 || idx >= size()) {
+    public AnyType set(int idx, AnyType newVal) {
+        if (idx < 0 || idx > size()) {
             throw new ArrayIndexOutOfBoundsException();
         }
+        AnyType old = theItems[idx];
+        theItems[idx] = newVal;
+        return old;
     }
 
     public void ensureCapacity(int newCapacity) {
         if (newCapacity < theSize) {
             return;
         }
-//        T[] old = theItems;
-//        theItems = (T[]) new Object[newCapacity];
-//        for (int i = 0; i < size(); i++) {
-//            theItems[i] = old[i];
-//        }
-        theItems = Arrays.copyOf(theItems, newCapacity);
+        AnyType[] old = theItems;
+        theItems = (AnyType[]) new Object[newCapacity];
+        if (size() >= 0) {
+            System.arraycopy(old, 0, theItems, 0, size());
+        }
     }
 
-    public boolean add(T x) {
+    public boolean add(AnyType x) {
         add(size(), x);
         return true;
     }
 
-    private void add(int idx, T x) {
+    private void add(int idx, AnyType x) {
         if (theItems.length == size()) {
             ensureCapacity(size() * 2 + 1);
         }
-//        for (int i = theSize; i > idx; i--) {
-//            theItems[i] = theItems[i - 1];
-//        }
         if (theSize - idx >= 0) {
             System.arraycopy(theItems, idx, theItems, idx + 1, theSize - idx);
         }
@@ -90,42 +82,41 @@ public class MyArrayList<T> implements Iterable<T> {
         theSize++;
     }
 
-    public T remove(int idx) {
-        T removedItem = theItems[idx];
+    public AnyType remove(int idx) {
+        AnyType removedItem = theItems[idx];
 
-//        for (int i = idx; i < size() - 1; i++) {
-//            theItems[i] = theItems[i + 1];
-//        }
-
+        /*
+            for (int i = idx; i < size() - 1; i++) {
+                theItems[i] = theItems[i + 1];
+            }
+         */
         if (size() - 1 - idx >= 0) {
             System.arraycopy(theItems, idx + 1, theItems, idx, size() - 1 - idx);
         }
         theSize--;
+
         return removedItem;
     }
 
+    /**
+     * Q309
+     *
+     * @param items
+     */
+    public void addAll(Iterable<? extends AnyType> items) {
+        for (AnyType item : items) {
+            add(item);
+        }
+    }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<AnyType> iterator() {
         return new ArrayListIterator();
     }
 
-    public ListIterator<T> listIterator() {
-        return new ArrayListIterator();
-    }
-
-
-    // add listIterator support
-
-    private class ArrayListIterator implements ListIterator<T> {
+    private class ArrayListIterator implements ListIterator<AnyType> {
 
         private int current = 0;
-
-        /**
-         * 逆序标志位
-         * next 方法 返回的是 theItems[current++]
-         * 在删除时要区分一下
-         */
         boolean backwards = false;
 
         @Override
@@ -134,7 +125,7 @@ public class MyArrayList<T> implements Iterable<T> {
         }
 
         @Override
-        public T next() {
+        public AnyType next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -148,7 +139,7 @@ public class MyArrayList<T> implements Iterable<T> {
         }
 
         @Override
-        public T previous() {
+        public AnyType previous() {
             if (!hasPrevious()) {
                 throw new NoSuchElementException();
             }
@@ -157,13 +148,8 @@ public class MyArrayList<T> implements Iterable<T> {
         }
 
         @Override
-        public int nextIndex() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int previousIndex() {
-            throw new UnsupportedOperationException();
+        public void add(AnyType x) {
+            MyArrayList.this.add(current++, x);
         }
 
         @Override
@@ -176,14 +162,18 @@ public class MyArrayList<T> implements Iterable<T> {
         }
 
         @Override
-        public void set(T t) {
-            MyArrayList.this.set(current, t);
+        public void set(AnyType x) {
+            MyArrayList.this.set(current, x);
         }
 
         @Override
-        public void add(T t) {
-            MyArrayList.this.add(current++, t);
+        public int nextIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int previousIndex() {
+            throw new UnsupportedOperationException();
         }
     }
-
 }
