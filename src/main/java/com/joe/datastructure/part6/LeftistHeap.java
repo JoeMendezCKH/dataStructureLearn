@@ -1,4 +1,4 @@
-package com.joe.datastructure.part5;
+package com.joe.datastructure.part6;
 
 import com.joe.datastructure.UnderflowException;
 
@@ -18,6 +18,7 @@ import com.joe.datastructure.UnderflowException;
  * Implements a leftist heap.
  * Note that all "matching" is based on the compareTo method.
  *
+ * @author Mark Allen Weiss
  * @author ckh
  * @create 10/8/20 3:39 PM
  */
