@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class RadixSortDemo {
     public static void main(String[] args) {
 //        int[] arr = {53, 3, 542, 748, 14, 214};
-        int[] arr = ArrayDataUtil.initArrData(80000);
+        int[] arr = ArrayDataUtil.initArrData(8000000);
 
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         radixSort(arr);

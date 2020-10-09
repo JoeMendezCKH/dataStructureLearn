@@ -18,8 +18,8 @@ public class ShellSortDemo {
         System.out.println("begin: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 //        shellSortByExchange(arr);
         shellSortByMove(arr);
+//        shellSortDemo(arr);
         System.out.println("end: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        String s = String.valueOf(1);
     }
 
     /**
@@ -70,6 +70,8 @@ public class ShellSortDemo {
     }
 
     private static void shellSortDemo(int[] arr) {
+
+        System.out.println("begin:" + Arrays.toString(arr));
         // first
         // 第一轮, 将10个数据分为5组
         int temp;
@@ -84,6 +86,7 @@ public class ShellSortDemo {
             }
         }
         System.out.println(Arrays.toString(arr));
+
         // 第二轮, 将10个数据分为 5/2 == 2 组
         for (int i = 2; i < arr.length; i++) {
             // 遍历各组中的所有元素(共5组, 每组2个), 步长为5

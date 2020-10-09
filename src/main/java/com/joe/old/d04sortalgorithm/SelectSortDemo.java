@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class SelectSortDemo {
     public static void main(String[] args) {
 //        int[] arr = {101, 34, 119, 1};
-        int[] arr = ArrayDataUtil.initArrData(80000);
+        int[] arr = ArrayDataUtil.initArrData(8000000);
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         SelectSort(arr);
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));

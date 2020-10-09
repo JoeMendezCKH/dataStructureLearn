@@ -11,10 +11,10 @@ public class MergeSortDemo {
     public static void main(String[] args) {
 //        int[] arr = {8, 4, 5, 7, 1, 3, 6, 2};
         int[] arr = ArrayDataUtil.initArrData(80000000);
-//        int[] temp = new int[arr.length];
+        int[] temp = new int[arr.length];
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        mergeSort(arr, 0, arr.length - 1, temp);
-        sortArray(arr);
+        mergeSort(arr, 0, arr.length - 1, temp);
+//        sortArray(arr);
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 //        System.out.println(Arrays.toString(arr));
     }
@@ -85,8 +85,11 @@ public class MergeSortDemo {
         }
     }
 
-    /** 力扣刷题看到的 80000000 都只要1s, 太强了 ,但是再多一个0会报OOM */
-    private static void sortArray(int[] nums){
+    /**
+     * 力扣刷题看到的 80000000 都只要1s, 太强了 ,但是再多一个0会报OOM
+     * 这个不是归并
+     */
+    private static void sortArray(int[] nums) {
         int min = nums[0];
         int max = nums[0];
         for (int i = 1; i < nums.length; i++) {
