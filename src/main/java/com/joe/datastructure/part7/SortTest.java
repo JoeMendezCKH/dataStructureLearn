@@ -36,7 +36,7 @@ public class SortTest {
     public void testSort() {
         Integer[] a = ArrayDataUtil.initIntegerArr(8000000);
         System.out.println("begin: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        SortAlgorithm.mergeSort(a);
+        SortAlgorithm.heapSort(a);
         System.out.println("end: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 

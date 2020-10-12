@@ -88,11 +88,12 @@ public class SortAlgorithm {
      * @param a an array of Comparable items.
      */
     public static <AnyType extends Comparable<? super AnyType>> void heapSort(AnyType[] a) {
-        // ? ? ?
+        // build heap
         for (int i = a.length / 2 - 1; i >= 0; i--) {
             percDown(a, i, a.length);
         }
         for (int i = a.length - 1; i > 0; i--) {
+            // delete max
             swapReferences(a, 0, i);
             percDown(a, 0, i);
         }
@@ -178,6 +179,7 @@ public class SortAlgorithm {
         }
 
         // Copy tempArr back
+        // rightEnd 是一直没有变的值，numElements 是数组的总长度，倒着赋值保证不会越界
         for (int i = 0; i < numElements; i++, rightEnd--) {
             a[rightEnd] = tempArr[rightEnd];
         }
@@ -222,11 +224,15 @@ public class SortAlgorithm {
                     break;
             }
 
-            swapReferences(a, i, right - 1);   // Restore pivot
+            // Restore pivot
+            swapReferences(a, i, right - 1);
 
-            quicksort(a, left, i - 1);    // Sort small elements
-            quicksort(a, i + 1, right);   // Sort large elements
-        } else  // Do an insertion sort on the subarray
+            // Sort small elements
+            quicksort(a, left, i - 1);
+            // Sort large elements
+            quicksort(a, i + 1, right);
+        } else
+            // Do an insertion sort on the subarray
             insertionSort(a, left, right);
     }
 
@@ -250,7 +256,7 @@ public class SortAlgorithm {
     }
 
     /**
-     * Internal insertion sort routine for subarrays
+     * Internal insertion sort routine for sub arrays
      * that is used by quicksort.
      *
      * @param a     an array of Comparable items.
@@ -261,10 +267,11 @@ public class SortAlgorithm {
     void insertionSort(AnyType[] a, int left, int right) {
         for (int p = left + 1; p <= right; p++) {
             AnyType tmp = a[p];
-            int j;
 
-            for (j = p; j > left && tmp.compareTo(a[j - 1]) < 0; j--)
+            int j;
+            for (j = p; j > left && tmp.compareTo(a[j - 1]) < 0; j--) {
                 a[j] = a[j - 1];
+            }
             a[j] = tmp;
         }
     }
