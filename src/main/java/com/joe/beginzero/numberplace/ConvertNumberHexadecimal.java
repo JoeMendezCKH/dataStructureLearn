@@ -107,10 +107,13 @@ public class ConvertNumberHexadecimal {
 
         StringBuilder ans = new StringBuilder();
         while (num != 0) {
-            int temp = num & 0xf;   // 取低4位的十进制值
-            ans.append(hex[temp]);  // 映射对应字符
+            // 取低4位的十进制值
+            int temp = num & 0xf;
+            // 映射对应字符
+            ans.append(hex[temp]);
 
-            num >>>= 4;             // 逻辑右移4位
+            // 逻辑右移4位
+            num >>>= 4;
         }
         // while的循环条件保证了不会出现前导0
         // 但是从低位开始转换多了一步reverse反转
