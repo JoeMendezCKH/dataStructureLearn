@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 /**
- * 697
+ * 697. Degree of an Array
  *
  * @author ckh
  * @create 2020/7/20 10:25
