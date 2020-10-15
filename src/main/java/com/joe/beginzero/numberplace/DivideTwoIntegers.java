@@ -9,7 +9,7 @@ package com.joe.beginzero.numberplace;
 public class DivideTwoIntegers {
 
     public static void main(String[] args) {
-        System.out.println(divide(-2147483648, 2));
+        System.out.println(divide2(-2147483648, 2));
 
     }
 
@@ -70,5 +70,46 @@ public class DivideTwoIntegers {
 
         //符号相异取反
         return negative ? -result : result;
+    }
+
+    /**
+     * 正数边界没有负数边界大, 所以用负数进行计算
+     * 类似上面的思路,但是是用负数来处理的, 避免使用 long 越界
+     */
+    public static int divide2(int dividend, int divisor) {
+        // 被除数与除数符号是否一致, 不一致为 true
+        boolean sign = (dividend ^ divisor) < 0;
+
+        int result = 0;
+        // 转化为负数
+        if (dividend > 0) {
+            dividend = -dividend;
+        }
+        if (divisor > 0) {
+            divisor = -divisor;
+        }
+
+
+        while (dividend <= divisor) {
+            int tempResult = -1;
+            int tempDivisor = divisor;
+            while (dividend <= (tempDivisor << 1)) {
+                if (tempDivisor <= (Integer.MIN_VALUE >> 1)) {
+                    break;
+                }
+                tempResult = tempResult << 1;
+                tempDivisor = tempDivisor << 1;
+            }
+            dividend = dividend - tempDivisor;
+            result += tempResult;
+        }
+
+        if (!sign) {
+            if (result <= Integer.MIN_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+            result = -result;
+        }
+        return result;
     }
 }
