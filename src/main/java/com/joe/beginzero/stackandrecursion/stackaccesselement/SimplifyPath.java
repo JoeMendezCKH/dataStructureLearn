@@ -7,6 +7,7 @@ import java.util.Stack;
 
 /**
  * 71. Simplify Path
+ * 合理使用API
  *
  * @author ckh
  * @create 10/20/20 9:46 PM
