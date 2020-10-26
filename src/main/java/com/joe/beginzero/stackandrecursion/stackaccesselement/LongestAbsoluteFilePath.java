@@ -42,8 +42,8 @@ public class LongestAbsoluteFilePath {
         }
         int max = 0;
         String[] st = input.split("\n");
-        // +2 是防止
-        int[] path = new int[st.length + 2];
+        // +1 是防止st为空, 保证new path[] 不会出错
+        int[] path = new int[st.length + 1];
         for (String s : st) {
             // level 从1 开始计数
             int level = s.lastIndexOf('\t') + 2;
