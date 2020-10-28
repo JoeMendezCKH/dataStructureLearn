@@ -14,7 +14,7 @@ public class CoinChangeTest {
     public void testCoinChange1() {
         int[] coins = new int[]{ 2};
         int amount = 3;
-        int ans = new CoinChange().coinMethod3(coins, amount);
+        int ans = new CoinChange().coinChangeReview(coins, amount);
         System.out.println(ans);
     }
 

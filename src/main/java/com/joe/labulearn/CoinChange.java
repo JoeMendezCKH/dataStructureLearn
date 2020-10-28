@@ -59,6 +59,7 @@ public class CoinChange {
     private int helper(int[] coins, int[] buf, int amount) {
         if (amount < 0) return -1;
         if (amount == 0) return 0;
+        // 缓存命中, 直接返回, 不用再次计算
         if (buf[amount] != Integer.MAX_VALUE) return buf[amount];
 
         for (int coin : coins) {
